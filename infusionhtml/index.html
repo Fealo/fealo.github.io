@@ -3,48 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Score Calculator</title>
+    <title>Infusionsrechner G10% + E-Lyte</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { 
-            max-width: 1024px; 
-            margin: 50px auto; 
-            padding: 20px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            width: 100%; 
-            box-sizing: border-box;
+        body {
+            font-family: Arial, sans-serif;
         }
-        .input-group { margin-bottom: 10px; }
-        .input-group label { display: block; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 8px; }
-        button { width: 100%; padding: 10px; background-color: #28a745; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
-        button:hover { background-color: #218838; }
-        .result { margin-top: 20px; font-size: 1.2em; }
+        .calculator {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .calculator h2 {
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            margin-bottom: 5px;
+        }
+        .input-control {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+        .input-control input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 0 5px;
+            -moz-appearance: textfield; /* Remove up and down arrows */
+        }
+        .input-control input::-webkit-outer-spin-button,
+        .input-control input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .input-control button {
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            border: 1px solid #ddd;
+            background: #f1f1f1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .input-unit {
+            font-size: 16px;
+            margin-left: 5px;
+            margin-right: 10px; /* Add space between unit and plus button */
+            color: #000;
+        }
+        .result {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .result span.label {
+            display: block;
+            font-size: 12px;
+            color: #555;
+        }
+        .result span.value {
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Score Calculator</h2>
-        <div class="input-group">
-            <label for="score1">Score 1:</label>
-            <input type="number" id="score1" value="0">
+
+<div class="calculator">
+    <h2>Infusionsrechner G10% + E-Lyte</h2>
+
+    <div class="input-group">
+        <label for="weight">Patientengewicht</label>
+        <div class="input-control">
+            <button onclick="changeValue('weight', -1)">-</button>
+            <input type="number" id="weight" value="25.0">
+            <span class="input-unit">kg</span>
+            <button onclick="changeValue('weight', 1)">+</button>
         </div>
-        <div class="input-group">
-            <label for="score2">Score 2:</label>
-            <input type="number" id="score2" value="0">
-        </div>
-        <button onclick="calculateTotal()">Calculate Total</button>
-        <div class="result" id="result"></div>
     </div>
-    <script>
-        function calculateTotal() {
-            var score1 = parseInt(document.getElementById('score1').value) || 0;
-            var score2 = parseInt(document.getElementById('score2').value) || 0;
-            var total = score1 + score2;
-            document.getElementById('result').textContent = 'Total Score: ' + total;
-        }
-    </script>
+
+    <div class="input-group">
+        <label for="glucose">Glucosemenge (in mg/kgKG/min)</label>
+        <div class="input-control">
+            <button onclick="changeValue('glucose', -1)">-</button>
+            <input type="number" id="glucose" value="6">
+            <span class="input-unit">mg/kgKG/min</span>
+            <button onclick="changeValue('glucose', 1)">+</button>
+        </div>
+    </div>
+
+    <div class="result" id="flowRate">
+        <span class="label">Laufgeschwindigkeit</span>
+        <span class="value" id="flowRateValue">90.0</span> ml/h
+    </div>
+
+    <div class="result" id="totalVolume">
+        <span class="label">Gesamtvolumen / 24h</span>
+        <span class="value" id="totalVolumeValue">2160</span> ml
+    </div>
+
+    <div class="input-group">
+        <label for="sodium">Natriummenge (in mmol/kgKG/24h)</label>
+        <div class="input-control">
+            <button onclick="changeValue('sodium', -1)">-</button>
+            <input type="number" id="sodium" value="2.0">
+            <span class="input-unit">mmol/kgKG/24h</span>
+            <button onclick="changeValue('sodium', 1)">+</button>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label for="potassium">Kaliummenge (in mmol/kgKG/24h)</label>
+        <div class="input-control">
+            <button onclick="changeValue('potassium', -1)">-</button>
+            <input type="number" id="potassium" value="1.0">
+            <span class="input-unit">mmol/kgKG/24h</span>
+            <button onclick="changeValue('potassium', 1)">+</button>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label for="bagSize">Beutelgröße</label>
+        <div class="input-control">
+            <button onclick="changeValue('bagSize', -100)">-</button>
+            <input type="number" id="bagSize" value="500">
+            <span class="input-unit">ml</span>
+            <button onclick="changeValue('bagSize', 100)">+</button>
+        </div>
+    </div>
+
+    <div class="result" id="sodiumPerBag">
+        <span class="label">Zugabe von Natrium 5,85% (1 molar) pro Beutel</span>
+        <span class="value" id="sodiumPerBagValue">11.6</span> ml
+    </div>
+
+    <div class="result" id="potassiumPerBag">
+        <span class="label">Zugabe von Kalium 7,45% (1 molar) pro Beutel</span>
+        <span class="value" id="potassiumPerBagValue">5.8</span> ml
+    </div>
+
+    <div class="result" id="adjustedFlowRate">
+        <span class="label">Angepasste Laufgeschwindigkeit nach Elektrolytzusatz</span>
+        <span class="value" id="adjustedFlowRateValue">93.1</span> ml/h
+    </div>
+
+    <div class="result" id="adjustedTotalVolume">
+        <span class="label">Angepasstes Gesamtvolumen nach Elektrolytzusatz</span>
+        <span class="value" id="adjustedTotalVolumeValue">2235.0</span> ml
+    </div>
+
+    <div class="result" id="bagsPerDay">
+        <span class="label">Beutel pro 24h</span>
+        <span class="value" id="bagsPerDayValue">4.32</span>
+    </div>
+
+    <div class="info">
+        Die Angaben erfolgen ohne Gewähr. Eine Prüfung auf Plausibilität ist stets durch den behandelnden Arzt durchzuführen.
+        Rückfragen oder Verbesserungsvorschläge gerne an Felix Linhardt.
+    </div>
+</div>
+
+<script>
+    function changeValue(id, change) {
+        const input = document.getElementById(id);
+        let value = parseFloat(input.value);
+        value += change;
+        input.value = value;
+        updateResults();
+    }
+
+    function updateResults() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const glucose = parseFloat(document.getElementById('glucose').value);
+        const sodium = parseFloat(document.getElementById('sodium').value);
+        const potassium = parseFloat(document.getElementById('potassium').value);
+        const bagSize = parseFloat(document.getElementById('bagSize').value);
+        const flowRate = (weight * glucose * 600) / 1000;
+        const totalVolume = flowRate * 24;
+        const bagsPerDay = totalVolume / bagSize;
+        const sodiumPerBag = (weight * sodium) / (bagsPerDay);
+        const potassiumPerBag = (weight * potassium) / (bagsPerDay);
+        const adjustedFlowRate =  flowRate * (sodiumPerBag + potassiumPerBag + bagSize) / bagSize;
+        const adjustedTotalVolume = adjustedFlowRate * 24;
+
+        document.getElementById('flowRateValue').textContent = flowRate.toFixed(1);
+        document.getElementById('totalVolumeValue').textContent = totalVolume.toFixed(0);
+        document.getElementById('sodiumPerBagValue').textContent = sodiumPerBag.toFixed(1);
+        document.getElementById('potassiumPerBagValue').textContent = potassiumPerBag.toFixed(1);
+        document.getElementById('adjustedFlowRateValue').textContent = adjustedFlowRate.toFixed(1);
+        document.getElementById('adjustedTotalVolumeValue').textContent = adjustedTotalVolume.toFixed(1);
+        document.getElementById('bagsPerDayValue').textContent = bagsPerDay.toFixed(2);
+    }
+
+    document.addEventListener('input', updateResults);
+    window.addEventListener('load', updateResults);
+</script>
+
 </body>
 </html>
 
