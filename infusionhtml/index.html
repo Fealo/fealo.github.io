@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Infusionsrechner G10% + E-Lyte</title>
     <style>
         body {
@@ -105,6 +105,10 @@
             color: #555;
             margin-top: 20px;
         }
+        /* Disable double-tap zoom */
+        button {
+            touch-action: manipulation;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +120,7 @@
         <label for="weight">Patientengewicht</label>
         <div class="input-control">
             <button onclick="changeValue('weight', -1)">-</button>
-            <input type="number" id="weight" value="25.0">
+            <input type="number" id="weight" value="25.0" step="0.1">
             <span class="input-unit">kg</span>
             <button onclick="changeValue('weight', 1)">+</button>
         </div>
@@ -126,7 +130,7 @@
         <label for="glucose">Glucosemenge (in mg/kgKG/min)</label>
         <div class="input-control">
             <button onclick="changeValue('glucose', -1)">-</button>
-            <input type="number" id="glucose" value="6">
+            <input type="number" id="glucose" value="6" step="0.1">
             <span class="input-unit">mg/kgKG/min</span>
             <button onclick="changeValue('glucose', 1)">+</button>
         </div>
@@ -146,7 +150,7 @@
         <label for="sodium">Natriummenge (in mmol/kgKG/24h)</label>
         <div class="input-control">
             <button onclick="changeValue('sodium', -1)">-</button>
-            <input type="number" id="sodium" value="2.0">
+            <input type="number" id="sodium" value="2.0" step="0.1">
             <span class="input-unit">mmol/kgKG/24h</span>
             <button onclick="changeValue('sodium', 1)">+</button>
         </div>
@@ -156,7 +160,7 @@
         <label for="potassium">Kaliummenge (in mmol/kgKG/24h)</label>
         <div class="input-control">
             <button onclick="changeValue('potassium', -1)">-</button>
-            <input type="number" id="potassium" value="1.0">
+            <input type="number" id="potassium" value="1.0" step="0.1">
             <span class="input-unit">mmol/kgKG/24h</span>
             <button onclick="changeValue('potassium', 1)">+</button>
         </div>
@@ -166,7 +170,7 @@
         <label for="bagSize">Beutelgröße</label>
         <div class="input-control">
             <button onclick="changeValue('bagSize', -100)">-</button>
-            <input type="number" id="bagSize" value="500">
+            <input type="number" id="bagSize" value="500" step="0.1">
             <span class="input-unit">ml</span>
             <button onclick="changeValue('bagSize', 100)">+</button>
         </div>
@@ -207,8 +211,8 @@
     function changeValue(id, change) {
         const input = document.getElementById(id);
         let value = parseFloat(input.value);
-        value += change;
-        input.value = value;
+        value += change * parseFloat(input.step);
+        input.value = value.toFixed(1);
         updateResults();
     }
 
