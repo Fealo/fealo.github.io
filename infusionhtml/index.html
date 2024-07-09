@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
         }
         .calculator {
             max-width: 600px;
@@ -15,9 +16,11 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #ffffff;
         }
         .calculator h2 {
             text-align: center;
+            color: #4b8e8d;
         }
         .input-group {
             display: flex;
@@ -27,6 +30,8 @@
         }
         .input-group label {
             margin-bottom: 5px;
+            color: #4b8e8d;
+            font-size: 16px;
         }
         .input-control {
             display: flex;
@@ -41,6 +46,8 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             margin: 0 5px;
+            background-color: #e6f2f1;
+            min-width: 50px;
             -moz-appearance: textfield; /* Remove up and down arrows */
         }
         .input-control input::-webkit-outer-spin-button,
@@ -59,12 +66,16 @@
             align-items: center;
             justify-content: center;
             border-radius: 4px;
+            background-color: #d4ebea;
+        }
+        .input-control button:hover {
+            background-color: #c1dbda;
         }
         .input-unit {
             font-size: 16px;
             margin-left: 5px;
             margin-right: 10px; /* Add space between unit and plus button */
-            color: #000;
+            color: #4b8e8d;
         }
         .result {
             text-align: center;
@@ -73,16 +84,26 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            background: #f9f9f9;
+            background: #e6f2f1;
         }
         .result span.label {
             display: block;
-            font-size: 12px;
-            color: #555;
+            font-size: 16px;
+            color: #4b8e8d;
         }
         .result span.value {
             font-size: 24px;
             font-weight: bold;
+        }
+        .result-faded {
+            background: rgba(230, 242, 241, 0.6);
+            color: #aaaaaa;
+        }
+        .info {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
         }
     </style>
 </head>
