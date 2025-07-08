@@ -22,7 +22,7 @@ function createHeader(activePage = '') {
     
     // Logo HTML - link only if not on home page
     const logoHTML = isHomePage 
-        ? `<img src="images/logo.png" alt="paed.eu" class="header-logo">`
+        ? `<img src="images/logo.png" alt="paed.eu" class="header-logo active">`
         : `<a href="index.html"><img src="images/logo.png" alt="paed.eu" class="header-logo"></a>`;
     
     const headerHTML = `

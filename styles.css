@@ -50,6 +50,17 @@ body, html {
     height: 80px;
     width: auto;
     display: block;
+    transition: all 0.3s ease;
+    opacity: 0.95;
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.header-logo:hover,
+.header-logo.active {
+    opacity: 1;
+    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .header-title a {
