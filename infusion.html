@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infusionsrechner - Pädiatrie Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .calconic-calculator {
+            max-width: 1024px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Give the calculator page maximum space */
+        .main-content .container {
+            max-width: 100%;
+            padding: 0 0.5rem;
+            width: 100%;
+        }
+        
+        .main-content .content {
+            max-width: none;
+            width: 100%;
+            padding: 0;
+        }
+        
+        /* Override any main content padding */
+        .main-content {
+            padding: 1rem 0;
+        }
+        
+        /* Make the h2 title less space-consuming */
+        .content h2 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* Logo styling */
+        .header-logo {
+            height: 40px;
+            width: auto;
+        }
+        
+        .header-title {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body data-page="rechner">
+    <div id="header-container"></div>
+    
+    <main class="main-content">
+        <div class="container">
+            <div class="content">
+                <h2>Infusionsrechner</h2>
+                <div class="calconic-calculator" data-calculatorid="668cf54248abfd002ac73870"></div>
+                
+                <div style="text-align: center; margin-top: 1rem; padding: 0.5rem;">
+                    <p style="margin: 0; font-size: 0.8rem; color: #888;">
+                        HTML-Version: 
+                        <a href="infusion-html.html" style="color: #666; text-decoration: none; margin-left: 3px;">Hier klicken</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        (function() { 
+            var qs, j, q, s, d = document, gi = d.getElementById,
+                ce = d.createElement, gt = d.getElementsByTagName,
+                id = "calconic_", b = "https://cdn.calconic.com/static/js/";
+            if (!gi.call(d, id)) { 
+                j = ce.call(d, "script"); 
+                j.id = id; 
+                j.type = "text/javascript"; 
+                j.async = true;
+                j.dataset.calconic = true;
+                j.src = b + "calconic.min.js"; 
+                q = gt.call(d, "script")[0]; 
+                q.parentNode.insertBefore(j, q); 
+            }
+        })();
+    </script>
+    
+    <script src="header.js"></script>
+</body>
+</html>
