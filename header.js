@@ -1,4 +1,18 @@
 // Shared header component for paed.eu
+
+// Preload the logo image for better performance
+function preloadLogo() {
+    // Check if preload link already exists
+    if (!document.querySelector('link[rel="preload"][href="images/logo.png"]')) {
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.href = 'images/logo.png';
+        preloadLink.as = 'image';
+        document.head.appendChild(preloadLink);
+        console.log('Logo preload added');
+    }
+}
+
 function createHeader(activePage = '') {
     console.log('Creating header for page:', activePage);
     
@@ -42,6 +56,9 @@ function createHeader(activePage = '') {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Header.js loaded - DOM ready');
     
+    // Preload the logo first
+    preloadLogo();
+    
     // Get the active page from the body's data attribute
     const activePage = document.body.getAttribute('data-page') || '';
     console.log('Active page:', activePage);
@@ -59,6 +76,7 @@ if (document.readyState === 'loading') {
 } else {
     // DOM is already loaded
     console.log('DOM already loaded, creating header immediately');
+    preloadLogo();
     const activePage = document.body.getAttribute('data-page') || '';
     createHeader(activePage);
 }
